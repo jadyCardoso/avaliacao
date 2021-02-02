@@ -13,8 +13,7 @@ public class TurmaController {
     private TurmaService service;
 
     @GetMapping("/turmas")
-    public ResponseEntity listar(){
+    public ResponseEntity listar() {
         return ResponseEntity.ok().body(service.listar());
     }
-
 }

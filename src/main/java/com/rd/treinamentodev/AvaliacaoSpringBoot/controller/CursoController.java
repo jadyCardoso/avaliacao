@@ -1,7 +1,7 @@
 package com.rd.treinamentodev.AvaliacaoSpringBoot.controller;
 
-import com.rd.treinamentodev.AvaliacaoSpringBoot.model.dto.AlunoDTO;
-import com.rd.treinamentodev.AvaliacaoSpringBoot.service.AlunoService;
+import com.rd.treinamentodev.AvaliacaoSpringBoot.model.dto.CursoDTO;
+import com.rd.treinamentodev.AvaliacaoSpringBoot.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AlunoController {
+public class CursoController {
 
     @Autowired
-    private AlunoService alunoService;
+    private CursoService service;
 
-    @PostMapping("/aluno")
-    public ResponseEntity gravar(@RequestBody AlunoDTO alunoDTO) {
-        return alunoService.gravar(alunoDTO);
+    @PostMapping("/cursos")
+    public ResponseEntity inserir(@RequestBody CursoDTO dto) {
+        service.inserir(dto);
+
+        return ResponseEntity.ok().body(dto);
     }
 }

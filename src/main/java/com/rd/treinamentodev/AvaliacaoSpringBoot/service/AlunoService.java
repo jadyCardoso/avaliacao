@@ -16,19 +16,20 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
 
 
-    public ResponseEntity gravar(AlunoDTO alunoDTO){
+    public ResponseEntity gravar(AlunoDTO alunoDTO) {
         AlunoEntity entity = new AlunoEntity();
         entity.setNomeAluno(alunoDTO.getNome());
         entity.setCpf(alunoDTO.getCpf());
+        ResultData resultData = null;
 
         //TODO validar se o CPF existe no banco antes de existir, caso exista retornar mensagem de erro
-
-
-
-
-        entity = alunoRepository.save(entity);
-
-        ResultData resultData = new ResultData(HttpStatus.CREATED.value(), "Aluno cadastrado com sucesso", entity.getIdAluno());
-        return ResponseEntity.status(HttpStatus.CREATED).body(resultData);
+        if (alunoRepository.findByCpf(alunoDTO.getCpf()) != null) {
+            resultData = new ResultData(HttpStatus.BAD_REQUEST.value(), "CPF JÁ CADASTRADO");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resultData);
+        } else {
+            entity = alunoRepository.save(entity);
+            resultData = new ResultData(HttpStatus.CREATED.value(), "Aluno cadastrado com sucesso", entity.getIdAluno());
+            return ResponseEntity.status(HttpStatus.CREATED).body(resultData);
+        }
     }
 }
