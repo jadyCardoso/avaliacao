@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class CursoController {
 
     @Autowired
-    private CursoService service;
+    private CursoService cursoService;
 
-    @PostMapping("/cursos")
-    public ResponseEntity inserir(@RequestBody CursoDTO dto) {
-        service.inserir(dto);
-
-        return ResponseEntity.ok().body(dto);
+    @PostMapping("/curso")
+    public ResponseEntity gravar(@RequestBody CursoDTO cursoDTO) {
+        return cursoService.gravar(cursoDTO);
     }
 }

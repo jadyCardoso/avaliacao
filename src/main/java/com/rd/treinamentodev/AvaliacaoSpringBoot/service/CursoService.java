@@ -4,6 +4,8 @@ import com.rd.treinamentodev.AvaliacaoSpringBoot.model.dto.CursoDTO;
 import com.rd.treinamentodev.AvaliacaoSpringBoot.model.entity.CursoEntity;
 import com.rd.treinamentodev.AvaliacaoSpringBoot.repository.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,22 +16,14 @@ public class CursoService {
     @Autowired
     private CursoRepository cursoRepository;
 
-    public void inserir(CursoDTO dto) {
-        CursoEntity entity = parseToEntity(dto, null);
-        if (entity.getNomeCurso() != null)
-            cursoRepository.save(entity);
-    }
+    public ResponseEntity gravar(CursoDTO cursoDTO) {
+        CursoEntity cursoEntity = new CursoEntity();
+        cursoEntity.setNomeCurso(cursoDTO.getNome());
+        cursoEntity.setNrCargaHoraria(cursoDTO.getCargaHoraria());
 
-    public CursoEntity parseToEntity(CursoDTO dto, CursoEntity entity) {
-        if (entity == null)
-            entity = new CursoEntity();
+        CursoEntity cursoEntity1 = cursoRepository.save(cursoEntity);
 
-        if (dto == null)
-            return entity;
-
-        entity.setNomeCurso(dto.getNome());
-        entity.setNrCargaHoraria(dto.getCargaHoraria());
-        return entity;
+        return ResponseEntity.status(HttpStatus.CREATED).body("Curso cadastrado com sucesso. ID: " + cursoEntity1.getIdCurso());
     }
 
 }

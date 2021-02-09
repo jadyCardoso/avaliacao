@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CursoRepository extends JpaRepository<CursoEntity, Long> {
-    List<CursoEntity> findByName(String nomeCurso);
+    List<CursoEntity> findByNomeCurso(String nomeCurso);
+
 }

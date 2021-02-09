@@ -3,25 +3,22 @@ package com.rd.treinamentodev.AvaliacaoSpringBoot.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 
-@Entity
-@Table(name = "TB_MODULO")
 @Data
+@Entity
+@Table(name = "TB_MODELO")
 public class ModuloEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_MODULE")
-    private Long idModulo;
+    @Column(name = "ID_MODULO")
+    private BigInteger idModulo;
 
     @Column(name = "DS_NOME")
-    private String nome;
+    private String dsNome;
 
-    /*@ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ID_INSTRUTOR")
-    private Long idInstrutor;*/
-
-    @OneToOne
-    @JoinColumn(name = "ID_INSTRUTOR")
-    private InstrutorEntity idInstrutor;
+    private InstrutorEntity instrutor;
 }
